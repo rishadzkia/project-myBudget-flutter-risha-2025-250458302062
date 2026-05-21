@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_budget/auth/bloc/login/login_bloc.dart';
-import 'package:my_budget/auth/pages/forgot_password.dart';
+import 'package:my_budget/auth/bloc/register/register_bloc.dart';
+import 'package:my_budget/auth/pages/login_page.dart';
 import 'package:my_budget/auth/pages/register_page.dart';
 import 'package:my_budget/auth/widget/custom_button.dart';
 import 'package:my_budget/auth/widget/custom_text_field.dart';
@@ -10,14 +11,15 @@ import 'package:my_budget/core/colors.dart';
 import 'package:my_budget/data/local/auth_local_datasource.dart';
 import 'package:my_budget/presentation/page/home_page.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
+  final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -26,12 +28,14 @@ class _LoginPageState extends State<LoginPage> {
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
+    _nameController.dispose();
     super.dispose();
   }
 
   void _handleLogin() {
     if (!_formKey.currentState!.validate()) return;
-    context.read<LoginBloc>().add(LoginEvent.login(
+    context.read<RegisterBloc>().add(RegisterEvent.register(
+        name: _nameController.text.trim(),
         email: _emailController.text.trim(),
         password: _passwordController.text.trim()));
   }
@@ -77,7 +81,7 @@ class _LoginPageState extends State<LoginPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Masuk',
+                            'Daftar Akun',
                             style: GoogleFonts.righteous(
                               fontWeight: FontWeight.w400,
                               fontSize: 24,
@@ -86,6 +90,23 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           SizedBox(
                             height: 20,
+                          ),
+                          CustomTextField(
+                            hintText: 'Nama Lengkap',
+                            controller: _nameController,
+                            keyboardType: TextInputType.name,
+                            validator: (value) {
+                              if (value == null || value.trim().isEmpty) {
+                                return 'Nama tidak boleh kosong';
+                              }
+                              if (value.trim().length < 3) {
+                                return 'Nama minimal 3 karakter';
+                              }
+                              return null;
+                            },
+                          ),
+                          SizedBox(
+                            height: 12,
                           ),
                           CustomTextField(
                             hintText: 'Email',
@@ -122,19 +143,7 @@ class _LoginPageState extends State<LoginPage> {
                           SizedBox(
                             height: 8,
                           ),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (_) => ForgotPasswordPage()));
-                            },
-                            child: Text(
-                              'Lupa kata Sandi', 
-                              style: GoogleFonts.poppins(
-                                  color: Color(0xFFBE1E2D),
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600),
-                            ),
-                          ),
+
                           SizedBox(
                             height: 20,
                           ),
@@ -164,7 +173,7 @@ class _LoginPageState extends State<LoginPage> {
                               return state.maybeWhen(
                                   orElse: () {
                                     return CustomButton(
-                                      label: 'Masuk',
+                                      label: 'Daftar',
                                       onPressed: () {
                                         context.read<LoginBloc>().add(
                                             LoginEvent.login(
@@ -187,7 +196,7 @@ class _LoginPageState extends State<LoginPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  'Belum punya akun?',
+                                  'Sudah punya akun?',
                                   style: GoogleFonts.poppins(
                                     color: Colors.white,
                                     fontWeight: FontWeight.w600,
@@ -199,7 +208,7 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                                 GestureDetector(
                                   child: Text(
-                                    'Daftar Sekarang',
+                                    'Masuk Sekarang',
                                     style: GoogleFonts.poppins(
                                         color: AppColors.biru4,
                                         fontSize: 13,
@@ -208,7 +217,7 @@ class _LoginPageState extends State<LoginPage> {
                                   onTap: () {
                                     Navigator.of(context).push(
                                         MaterialPageRoute(
-                                            builder: (_) => RegisterPage()));
+                                            builder: (_) => LoginPage()));
                                   },
                                 )
                               ],

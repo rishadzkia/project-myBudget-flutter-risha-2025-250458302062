@@ -1,37 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:my_budget/auth/pages/login_page.dart';
 
-class OnBoardingPage extends StatefulWidget {
-  const OnBoardingPage({super.key});
+class OnboardingScreen extends StatefulWidget {
+  const OnboardingScreen({super.key});
 
   @override
-  State<OnBoardingPage> createState() => _OnBoardingPageState();
+  State<OnboardingScreen> createState() => _OnboardingScreenState();
 }
 
-class _OnBoardingPageState extends State<OnBoardingPage> {
+class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
 
-  final List<OnBoardingPageData> _pages = const [
-    OnBoardingPageData(
+  final List<OnboardingPageData> _pages = const [
+    OnboardingPageData(
       title:
-          'Catat semua aktivitas keuanganmu agar lebih terkontrol dan tidak boros',
+          'Catat semua aktivitas keuanganmu agar\nlebih terkontrol dan tidak boros',
       imagePath: 'assets/onboard/cuate.png',
     ),
-    OnBoardingPageData(
-      title:
-          'Atur pemasukan dan pengeluaranmu dalam satu aplikasi yang simpel dan rapi',
+    OnboardingPageData(
+      title: 'Kelola pengeluaran sehari-hari dengan\nlebih mudah dan cepat',
       imagePath: 'assets/onboard/rafiki.png',
     ),
-    OnBoardingPageData(
-      title:
-          'Tentukan batas pengeluaran dan capai tujuan finansialmu dengan lebih terarah',
+    OnboardingPageData(
+      title: 'Rencanakan tabunganmu agar tujuan\nkeuangan lebih terarah',
       imagePath: 'assets/onboard/rafiki2.png',
     ),
   ];
+
   @override
   void dispose() {
     _pageController.dispose();
-    // TODO: implement dispose
     super.dispose();
   }
 
@@ -55,15 +54,14 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
     final height = size.height;
 
     return Scaffold(
-      backgroundColor: const Color(0xFF49769F),
+      backgroundColor: const Color(0xFF64B9F3),
       body: Stack(
         children: [
           Container(
             width: double.infinity,
             height: double.infinity,
-            color: const Color(0xFF7CBCE8),
+            color: const Color(0xFF64B9F3),
           ),
-
           Positioned(
             left: 0,
             right: 0,
@@ -73,7 +71,6 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
               painter: BottomDarkCurvePainter(),
             ),
           ),
-
           Positioned(
             top: 0,
             left: 0,
@@ -86,7 +83,6 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
               alignment: Alignment.topCenter,
             ),
           ),
-
           Positioned(
             top: height * 0.28,
             left: 0,
@@ -102,7 +98,6 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    // Ilustrasi
                     SizedBox(
                       height: height * 0.36,
                       child: Image.asset(
@@ -110,10 +105,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                         fit: BoxFit.contain,
                       ),
                     ),
-
                     const SizedBox(height: 60),
-
-                    // Teks deskripsi: Ikut slide bersama gambar
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 28),
                       child: Text(
@@ -164,7 +156,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
               child: ElevatedButton(
                 onPressed: _onNext,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0XFF49769F),
+                  backgroundColor: const Color(0xFF2C9BE6),
                   elevation: 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -191,12 +183,11 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   }
 }
 
-// Painter kurva gelap bawah
 class BottomDarkCurvePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = const Color(0xFF7CBCE8)
+      ..color = const Color(0xFF06233D)
       ..style = PaintingStyle.fill;
 
     final path = Path()
@@ -218,10 +209,9 @@ class BottomDarkCurvePainter extends CustomPainter {
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
 
-// Data Model
-class OnBoardingPageData {
+class OnboardingPageData {
   final String title;
   final String imagePath;
 
-  const OnBoardingPageData({required this.title, required this.imagePath});
+  const OnboardingPageData({required this.title, required this.imagePath});
 }

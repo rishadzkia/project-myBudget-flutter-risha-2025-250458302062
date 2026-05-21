@@ -28,20 +28,13 @@ class _SplashScreenState extends State<SplashScreen>
     _pulse = Tween<double>(
       begin: 0.97,
       end: 1.03,
-    ).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: Curves.easeInOut,
-      ),
-    );
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
 
     Timer(const Duration(seconds: 4), () {
       if (!mounted) return;
 
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute<void>(
-          builder: (_) => const OnBoardingPage(),
-        ),
+        MaterialPageRoute<void>(builder: (_) => const OnboardingScreen()),
       );
     });
   }
@@ -67,9 +60,7 @@ class _SplashScreenState extends State<SplashScreen>
               return Stack(
                 fit: StackFit.expand,
                 children: [
-                  const CustomPaint(
-                    painter: SplashBackgroundPainter(),
-                  ),
+                  const CustomPaint(painter: SplashBackgroundPainter()),
 
                   // Lingkaran kiri atas
                   Positioned(
@@ -136,18 +127,10 @@ class SplashBackgroundPainter extends CustomPainter {
       ..shader = const LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
-        colors: [
-          Color(0xFF061D39),
-          Color(0xFF03172D),
-        ],
-      ).createShader(
-        Rect.fromLTWH(0, 0, width, height),
-      );
+        colors: [Color(0xFF061D39), Color(0xFF03172D)],
+      ).createShader(Rect.fromLTWH(0, 0, width, height));
 
-    canvas.drawRect(
-      Rect.fromLTWH(0, 0, width, height),
-      backgroundPaint,
-    );
+    canvas.drawRect(Rect.fromLTWH(0, 0, width, height), backgroundPaint);
 
     final bluePaint = Paint()
       ..color = const Color(0xFF0C4677)
@@ -157,10 +140,7 @@ class SplashBackgroundPainter extends CustomPainter {
       ..color = const Color(0xFF6EC6FF).withOpacity(0.55)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 22
-      ..maskFilter = const MaskFilter.blur(
-        BlurStyle.normal,
-        18,
-      );
+      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 18);
 
     // Bentuk biru kanan atas
     final topPath = Path()
@@ -223,9 +203,7 @@ class SplashBackgroundPainter extends CustomPainter {
 class _SoftCircle extends StatelessWidget {
   final double size;
 
-  const _SoftCircle({
-    required this.size,
-  });
+  const _SoftCircle({required this.size});
 
   @override
   Widget build(BuildContext context) {
