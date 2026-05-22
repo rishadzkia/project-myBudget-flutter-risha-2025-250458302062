@@ -9,7 +9,7 @@ import 'package:my_budget/auth/widget/custom_button.dart';
 import 'package:my_budget/auth/widget/custom_text_field.dart';
 import 'package:my_budget/core/colors.dart';
 import 'package:my_budget/data/local/auth_local_datasource.dart';
-import 'package:my_budget/presentation/page/home_page.dart';
+import 'package:my_budget/presentation/page/utama/home_page.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
