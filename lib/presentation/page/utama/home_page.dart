@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_budget/core/colors.dart';
+import 'package:my_budget/presentation/page/lain/dana_terlindungi.dart';
+import 'package:my_budget/presentation/page/utama/kategori_page.dart';
+import 'package:my_budget/presentation/widget/category_card_widget.dart';
 import 'package:my_budget/presentation/widget/dana_terlindungi_card_widget.dart';
 import 'package:my_budget/presentation/widget/total_saldo_main_widget.dart';
 
@@ -18,40 +21,54 @@ class HomePage extends StatelessWidget {
       body: SafeArea(
           child: SingleChildScrollView(
         padding: EdgeInsets.fromLTRB(20, 16, 20, 120),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _HomeHeader(),
-            SizedBox(
-              height: 16,
-            ),
-            Text(
-              'Halo Vyora 👋🏻',
-              style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 20,
-                  color: Colors.black),
-            ),
-            SizedBox(
-              height: 4,
-            ),
-            Text(
-              'Yuk, kelola keuanganmu hari ini!',
-              style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 14,
-                  color: Colors.blueGrey),
-            ),
-            SizedBox(
-              height: 8,
-            ),
-            TotalSaldoMainWidget(saldo: 'Rp.50.000.000'),
-            SizedBox(
-              height: 10,
-            ),
-            DanaTerlindungiCardWidget(jumlah: 'Rp.500.000'),
-          ],
-        ),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          _HomeHeader(),
+          SizedBox(
+            height: 16,
+          ),
+          Text(
+            'Halo Vyora 👋🏻',
+            style: GoogleFonts.poppins(
+                fontWeight: FontWeight.w500, fontSize: 20, color: Colors.black),
+          ),
+          SizedBox(
+            height: 4,
+          ),
+          Text(
+            'Yuk, kelola keuanganmu hari ini!',
+            style: GoogleFonts.poppins(
+                fontWeight: FontWeight.w400,
+                fontSize: 14,
+                color: Colors.blueGrey),
+          ),
+          SizedBox(
+            height: 8,
+          ),
+          TotalSaldoMainWidget(saldo: 'Rp.50.000.000'),
+          SizedBox(
+            height: 10,
+          ),
+          DanaTerlindungiCardWidget(
+            jumlah: 'Rp.500.000',
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DanaTerlindungiPage(),
+                  ));
+            },
+          ),
+          SizedBox(
+            height: 24,
+          ),
+          CardCategory(onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => CategoryPage()));
+          }),
+          SizedBox(
+            height: 20,
+          ),
+        ]),
       )),
     );
   }
