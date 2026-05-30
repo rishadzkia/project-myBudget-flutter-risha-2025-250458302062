@@ -1,9 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_budget/core/colors.dart';
+import 'package:my_budget/presentation/widget/dialog/dana_terlindungi_dialog.dart';
 
-class DanaTerlindungiPage extends StatelessWidget {
+class DanaTerlindungiPage extends StatefulWidget {
   const DanaTerlindungiPage({super.key});
+
+  @override
+  State<DanaTerlindungiPage> createState() => _DanaTerlindungiPageState();
+}
+
+class _DanaTerlindungiPageState extends State<DanaTerlindungiPage> {
+  final TextEditingController nominalController = TextEditingController();
+
+  String totalDana = '0';
+
+  @override
+  void dispose() {
+    nominalController.dispose(); 
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +99,7 @@ class DanaTerlindungiPage extends StatelessWidget {
                           color: Colors.white,
                         )),
                     SizedBox(height: 4),
-                    Text('Rp. 500.000',
+                    Text('Rp. $totalDana',
                         style: GoogleFonts.poppins(
                           fontWeight: FontWeight.w600,
                           fontSize: 24,
@@ -100,7 +116,27 @@ class DanaTerlindungiPage extends StatelessWidget {
                         )),
                     Spacer(),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        // Ini biar tiap klik nominalnya dikosongin
+                        nominalController.clear();
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return DanaTerlindungiDialog(
+                                  nominalController: nominalController,
+                                  onSimpan: () {
+                                    if (nominalController.text.isEmpty) {
+                                      return;
+                                    }
+
+                                    setState(() {
+                                      totalDana = nominalController.text;
+                                    });
+
+                                    Navigator.pop(context);
+                                  });
+                            });
+                      },
                       behavior: HitTestBehavior.opaque,
                       child: Container(
                         width: double.infinity,

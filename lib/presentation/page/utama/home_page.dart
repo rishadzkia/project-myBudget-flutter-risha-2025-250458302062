@@ -1,18 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_budget/core/colors.dart';
+import 'package:my_budget/data/model/history_transaksi.dart';
 import 'package:my_budget/presentation/page/lain/dana_terlindungi.dart';
 import 'package:my_budget/presentation/page/utama/kategori_page.dart';
+import 'package:my_budget/presentation/widget/card_history.dart';
 import 'package:my_budget/presentation/widget/category_card_widget.dart';
 import 'package:my_budget/presentation/widget/dana_terlindungi_card_widget.dart';
+import 'package:my_budget/presentation/widget/rekening_item_widget.dart';
 import 'package:my_budget/presentation/widget/total_saldo_main_widget.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  HomePage({super.key});
 
-  // final List<TransaksiData> _transaksi = [
-
-  // ];
+  final List<TransaksiHistoryData> _transaksi = [
+    TransaksiHistoryData(
+      icon: Icons.shopping_bag_rounded,
+      label: 'Belanja Sayur',
+      kategori: 'Belanja',
+      jumlah: '50.000',
+      tanggal: 'Minggu, 10 September 2023',
+      isPemasukan: false,
+    ),
+    TransaksiHistoryData(
+      icon: Icons.money_rounded,
+      label: 'Gaji',
+      kategori: 'Pemasukan',
+      jumlah: '10.000.000',
+      tanggal: 'Minggu, 10 September 2023',
+      isPemasukan: true,
+      BgColor: 
+    )
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +87,36 @@ class HomePage extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
+          RekeningItemWidget(label: 'Rekening', onTap: () {}),
+          SizedBox(
+            height: 20,
+          ),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Text('Riwayat Transaksi',
+                style: GoogleFonts.poppins(
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black,
+                  fontSize: 16,
+                )),
+            TextButton( 
+                onPressed: () {},
+                child: Text(
+                  'Lihat Semua',
+                  style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      color: AppColors.biru3,
+                      fontWeight: FontWeight.w500),
+                )),
+            SizedBox(height: 8),
+          ]),
+          ListView.builder(
+            itemCount: _transaksi.length,
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) {
+              return CardHistory(data: _transaksi[index]);
+            },
+          )
         ]),
       )),
     );

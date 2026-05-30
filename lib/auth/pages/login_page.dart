@@ -8,6 +8,7 @@ import 'package:my_budget/auth/widget/custom_button.dart';
 import 'package:my_budget/auth/widget/custom_text_field.dart';
 import 'package:my_budget/core/colors.dart';
 import 'package:my_budget/data/local/auth_local_datasource.dart';
+import 'package:my_budget/presentation/page/main_page.dart';
 import 'package:my_budget/presentation/page/utama/home_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -128,7 +129,7 @@ class _LoginPageState extends State<LoginPage> {
                                   builder: (_) => ForgotPasswordPage()));
                             },
                             child: Text(
-                              'Lupa kata Sandi', 
+                              'Lupa kata Sandi',
                               style: GoogleFonts.poppins(
                                   color: Color(0xFFBE1E2D),
                                   fontSize: 14,
@@ -142,14 +143,14 @@ class _LoginPageState extends State<LoginPage> {
                           // Buat pindah halaman
                           BlocListener<LoginBloc, LoginState>(
                             listener: (context, state) {
-                              state.maybeWhen(
+                              state.maybeWhen( 
                                   orElse: () {},
                                   success: (data) async {
                                     await AuthLocalDatasource()
                                         .saveAuthData(data);
                                     Navigator.of(context).pushReplacement(
                                         MaterialPageRoute(
-                                            builder: (_) => const HomePage()));
+                                            builder: (_) => MainPage()));
                                   },
                                   error: (error) {
                                     ScaffoldMessenger.of(context)

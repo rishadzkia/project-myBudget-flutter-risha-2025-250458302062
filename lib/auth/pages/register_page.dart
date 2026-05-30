@@ -158,7 +158,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                         .saveAuthData(data);
                                     Navigator.of(context).pushReplacement(
                                         MaterialPageRoute(
-                                            builder: (_) => const HomePage()));
+                                            builder: (_) => HomePage()));
                                   },
                                   error: (error) {
                                     ScaffoldMessenger.of(context)

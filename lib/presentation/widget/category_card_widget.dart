@@ -92,13 +92,14 @@ class KategoriItem extends StatelessWidget {
                   width: 50,
                   height: 50,
                   decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: Colors.white, 
                       borderRadius: BorderRadius.circular(14),
+                      border: Border.all(color: Color(0xFF153E98), width: 1.5),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black.withOpacity(0.10),
-                          blurRadius: 10,
-                          offset: Offset(0, 4),
+                          blurRadius: 16,
+                          offset: Offset(2, 4),
                         )
                       ]),
                   child: Icon(

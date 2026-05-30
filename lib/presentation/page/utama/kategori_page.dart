@@ -1,21 +1,22 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:my_budget/core/colors.dart';
 
 class CategoryPage extends StatelessWidget {
   CategoryPage({super.key});
 
-  final List<CategoryData> categories = [
-    // Row 1
+  final List<CategoryData> categories = [ 
+    // Row 1 
     CategoryData(
       icon: Icons.category_outlined,
       label: 'Belanja',
-      color: Colors.black,
+      color: Color(0xFFFF7EDF),
     ),
     CategoryData(
       icon: Icons.fastfood_rounded,
       label: 'Makanan',
-      color: Colors.black,
+      color: Color(0xFF1F8FE5),
     ),
     CategoryData(
       icon: Icons.coffee_rounded,
@@ -167,27 +168,31 @@ class CategoryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Kategori',
-              style: GoogleFonts.poppins(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.black)),
-          backgroundColor: Colors.white,
-          elevation: 0,
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.black),
-            onPressed: () => Navigator.pop(context),
-          ),
+      appBar: AppBar(
+        title: Text(
+          'Kategori',
+          style: GoogleFonts.poppins(
+              fontWeight: FontWeight.w700,
+              fontSize: 20,
+              color: AppColors.biru2),
         ),
-        body: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 5,
-          ),
+        centerTitle: true,
+      ),
+      body: GridView.builder(
+          padding: EdgeInsets.all(24),
           itemCount: categories.length,
-          itemBuilder: (context, index) =>
-              CategoryGridItem(data: categories[index]),
-        ));
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 5,
+              mainAxisSpacing: 22,
+              crossAxisSpacing: 10,
+              childAspectRatio: 0.7),
+          itemBuilder: (context, index) {
+            return CategoryGridItem(
+              data: categories[index],
+              onTap: () {},
+            );
+          }),
+    );
   }
 }
 
