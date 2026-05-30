@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../page/utama/kategori_page.dart';
 
 class KategoriData {
   final IconData icon;
@@ -51,7 +52,14 @@ class CardCategory extends StatelessWidget {
         return KategoriItem(
           icon: item.icon,
           label: item.label,
-          onTap: item.label == 'Lainnya' ? onTap : null,
+          onTap: item.label == 'Lainnya'
+              ? () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => CategoryPage()),
+                  );
+                }
+              : onTap,
           iconColor: item.iconColor,
         );
       }).toList(),

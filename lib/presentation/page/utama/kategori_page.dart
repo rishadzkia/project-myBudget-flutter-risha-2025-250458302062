@@ -6,22 +6,188 @@ class CategoryPage extends StatelessWidget {
   CategoryPage({super.key});
 
   final List<CategoryData> categories = [
+    // Row 1
     CategoryData(
-        icon: Icons.category_outlined, label: 'Belanja', color: Colors.blue),
+      icon: Icons.category_outlined,
+      label: 'Belanja',
+      color: Colors.black,
+    ),
     CategoryData(
-        icon: Icons.fastfood_rounded, label: 'Makanan', color: Colors.orange),
+      icon: Icons.fastfood_rounded,
+      label: 'Makanan',
+      color: Colors.black,
+    ),
     CategoryData(
-        icon: Icons.coffee_rounded, label: 'Coffe', color: Colors.brown),
-    CategoryData( 
-        icon: Icons.directions_car_outlined,
-        label: 'Transportasi',
-        color: Colors.green),
-    CategoryData(icon: Icons.add_rounded, label: 'Lainnya', color: Colors.grey),
+      icon: Icons.coffee_rounded,
+      label: 'Coffee',
+      color: Colors.black,
+    ),
+    CategoryData(
+      icon: Icons.directions_car_outlined,
+      label: 'Transportasi',
+      color: Colors.black,
+    ),
+    CategoryData(
+      icon: Icons.favorite_outline,
+      label: 'Donasi',
+      color: Colors.black,
+    ),
+
+    CategoryData(
+      icon: Icons.restaurant_outlined,
+      label: 'Makan',
+      color: Colors.black,
+    ),
+    CategoryData(
+      icon: Icons.card_giftcard_outlined,
+      label: 'Hadiah',
+      color: Colors.black,
+    ),
+    CategoryData(
+      icon: Icons.local_cafe_outlined,
+      label: 'Coffee',
+      color: Colors.black,
+    ),
+    CategoryData(
+      icon: Icons.apple,
+      label: 'Buah',
+      color: Colors.black,
+    ),
+    CategoryData(
+      icon: Icons.brush_outlined,
+      label: 'Make Up',
+      color: Colors.black,
+    ),
+
+    CategoryData(
+      icon: Icons.cake_outlined,
+      label: 'Birthday',
+      color: Colors.black,
+    ),
+    CategoryData(
+      icon: Icons.phone_android_outlined,
+      label: 'Handphone',
+      color: Colors.black,
+    ),
+    CategoryData(
+      icon: Icons.home_outlined,
+      label: 'Rumah',
+      color: Colors.black,
+    ),
+    CategoryData(
+      icon: Icons.shopping_cart_outlined,
+      label: 'Belanja',
+      color: Colors.black,
+    ),
+    CategoryData(
+      icon: Icons.local_shipping_outlined,
+      label: 'Kurir',
+      color: Colors.black,
+    ),
+
+    CategoryData(
+      icon: Icons.spa_outlined,
+      label: 'Salon',
+      color: Colors.black,
+    ),
+    CategoryData(
+      icon: Icons.directions_car_outlined,
+      label: 'Transportasi',
+      color: Colors.black,
+    ),
+    CategoryData(
+      icon: Icons.account_balance_outlined,
+      label: 'Bank',
+      color: Colors.black,
+    ),
+    CategoryData(
+      icon: Icons.fastfood_outlined,
+      label: 'Jajan',
+      color: Colors.black,
+    ),
+    CategoryData(
+      icon: Icons.pets_outlined,
+      label: 'Doggy',
+      color: Colors.black,
+    ),
+
+    CategoryData(
+      icon: Icons.checkroom_outlined,
+      label: 'Baju',
+      color: Colors.black,
+    ),
+    CategoryData(
+      icon: Icons.restaurant_menu_outlined,
+      label: 'Makanan',
+      color: Colors.black,
+    ),
+    CategoryData(
+      icon: Icons.work_outline,
+      label: 'Pekerjaan',
+      color: Colors.black,
+    ),
+    CategoryData(
+      icon: Icons.sports_esports_outlined,
+      label: 'Game',
+      color: Colors.black,
+    ),
+    CategoryData(
+      icon: Icons.pets_outlined,
+      label: 'Cat',
+      color: Colors.black,
+    ),
+
+    CategoryData(
+      icon: Icons.fastfood_outlined,
+      label: 'Jajan',
+      color: Colors.black,
+    ),
+    CategoryData(
+      icon: Icons.face_outlined,
+      label: 'Skincare',
+      color: Colors.black,
+    ),
+    CategoryData(
+      icon: Icons.shopping_bag_outlined,
+      label: 'Belanja',
+      color: Colors.black,
+    ),
+    CategoryData(
+      icon: Icons.devices_outlined,
+      label: 'Digi',
+      color: Colors.black,
+    ),
+    CategoryData(
+      icon: Icons.forest_outlined,
+      label: 'Camp',
+      color: Colors.black,
+    ),
   ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('Kategori',
+              style: GoogleFonts.poppins(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black)),
+          backgroundColor: Colors.white,
+          elevation: 0,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: Colors.black),
+            onPressed: () => Navigator.pop(context),
+          ),
+        ),
+        body: GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 5,
+          ),
+          itemCount: categories.length,
+          itemBuilder: (context, index) =>
+              CategoryGridItem(data: categories[index]),
+        ));
   }
 }
 
@@ -30,7 +196,11 @@ class CategoryData {
   final String label;
   final Color? color;
 
-  CategoryData({required this.icon, required this.label, required this.color});
+  CategoryData({
+    required this.icon,
+    required this.label,
+    required this.color,
+  });
 }
 
 class CategoryGridItem extends StatelessWidget {
@@ -50,7 +220,7 @@ class CategoryGridItem extends StatelessWidget {
                   width: 50,
                   height: 50,
                   decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: data.color,
                       borderRadius: BorderRadius.circular(14),
                       boxShadow: [
                         BoxShadow(
@@ -61,7 +231,7 @@ class CategoryGridItem extends StatelessWidget {
                       ]),
                   child: Icon(
                     data.icon,
-                    color: data.color,
+                    color: Colors.white,
                     size: 28,
                   )),
               SizedBox(height: 6),
