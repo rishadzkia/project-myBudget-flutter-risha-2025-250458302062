@@ -84,7 +84,7 @@ class _TransaksiPageState extends State<TransaksiPage> {
                         setState(() {});
                       }),
                   SizedBox(
-                    height: 22, 
+                    height: 22,
                   ),
                   TransaksiInfoCard(
                     rekening: isPemasukan ? 'Bank BRI' : 'Bank Mandiri',
@@ -95,7 +95,10 @@ class _TransaksiPageState extends State<TransaksiPage> {
                   SizedBox(
                     height: 22,
                   ),
-                  TransaksiNoteCard(controller: noteController)
+                  TransaksiNoteCard(
+                      controller: noteController,
+                      icon: Icons.calendar_month_rounded,
+                      label: 'Catatan'),
                 ],
               ),
             )

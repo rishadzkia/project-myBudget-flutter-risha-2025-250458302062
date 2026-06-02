@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:my_budget/core/colors.dart';
 import 'package:my_budget/data/model/history_transaksi.dart';
 import 'package:my_budget/presentation/page/lain/dana_terlindungi.dart';
+import 'package:my_budget/presentation/page/lain/rekening_page.dart';
 import 'package:my_budget/presentation/page/utama/kategori_page.dart';
 import 'package:my_budget/presentation/widget/card_history.dart';
 import 'package:my_budget/presentation/widget/category_card_widget.dart';
@@ -29,7 +30,7 @@ class HomePage extends StatelessWidget {
       jumlah: '10.000.000',
       tanggal: 'Minggu, 10 September 2023',
       isPemasukan: true,
-      BgColor: 
+      // BgColor:
     )
   ];
 
@@ -87,7 +88,12 @@ class HomePage extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          RekeningItemWidget(label: 'Rekening', onTap: () {}),
+          RekeningItemWidget( 
+              label: 'Rekening', 
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => RekeningPage()));
+              }),
           SizedBox(
             height: 20,
           ),
@@ -98,7 +104,7 @@ class HomePage extends StatelessWidget {
                   color: Colors.black,
                   fontSize: 16,
                 )),
-            TextButton( 
+            TextButton(
                 onPressed: () {},
                 child: Text(
                   'Lihat Semua',

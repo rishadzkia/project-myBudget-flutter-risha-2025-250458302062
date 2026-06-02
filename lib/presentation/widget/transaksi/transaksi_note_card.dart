@@ -3,8 +3,11 @@ import 'package:google_fonts/google_fonts.dart';
 
 class TransaksiNoteCard extends StatelessWidget {
   final TextEditingController controller;
+  final IconData? icon;
+  final String? label;
 
-  const TransaksiNoteCard({super.key, required this.controller});
+  const TransaksiNoteCard(
+      {super.key, required this.controller, this.icon, this.label});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +15,7 @@ class TransaksiNoteCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Catatan',
+          label ?? '',
           style: GoogleFonts.poppins(
             color: Colors.white,
             fontSize: 16,
@@ -33,9 +36,9 @@ class TransaksiNoteCard extends StatelessWidget {
               color: Colors.white,
             ),
             cursorColor: Colors.white,
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               prefixIcon: Icon(
-                Icons.calendar_month_outlined,
+                icon,
                 size: 22,
                 color: Colors.white,
               ),
