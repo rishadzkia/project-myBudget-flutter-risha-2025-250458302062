@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_budget/presentation/page/utama/home_page.dart';
 import 'package:my_budget/presentation/page/utama/kategori_page.dart';
+import 'package:my_budget/presentation/page/utama/laporan_page.dart';
 import 'package:my_budget/presentation/page/utama/transaksi_page.dart';
 import 'package:my_budget/presentation/widget/nav/custom_button_navbar.dart';
 import 'package:my_budget/presentation/widget/nav/custom_floating.dart';
@@ -17,8 +18,8 @@ class _MainPageState extends State<MainPage> {
 
   final List<Widget> _pages = [
     HomePage(),
-    TransaksiPage(),
-    Text('Laporan'),
+    TransaksiPage(), 
+    LaporanPage(),
     Text('Level'),
   ];
 

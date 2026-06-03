@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_budget/core/colors.dart';
+import 'package:my_budget/presentation/widget/rekening/button_rekening.dart';
 import 'package:my_budget/presentation/widget/transaksi/transaksi_amount_card.dart';
 import 'package:my_budget/presentation/widget/transaksi/transaksi_info_card.dart';
 import 'package:my_budget/presentation/widget/transaksi/transaksi_note_card.dart';
@@ -15,7 +16,7 @@ class TransaksiPage extends StatefulWidget {
 }
 
 class _TransaksiPageState extends State<TransaksiPage> {
-  final TransactionType selectedType = TransactionType.pemasukan;
+  TransactionType selectedType = TransactionType.pemasukan;
   bool isOtomatis = false;
   final TextEditingController noteController = TextEditingController();
 
@@ -99,6 +100,10 @@ class _TransaksiPageState extends State<TransaksiPage> {
                       controller: noteController,
                       icon: Icons.calendar_month_rounded,
                       label: 'Catatan'),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  ButtonRekening(title: 'Simpan Transaksi', onTap: () {}),
                 ],
               ),
             )

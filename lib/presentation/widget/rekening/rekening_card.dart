@@ -50,8 +50,8 @@ class RekeningListCard extends StatelessWidget {
               Expanded(
                 child: Text(title,
                     maxLines: 1,
-                    // TextOverFlow.ellipsis
-                    overFlow: TextOverflow.ellipsis,
+                    // TextOverflow.ellipsis
+                    overflow: TextOverflow.ellipsis,
                     style: GoogleFonts.poppins(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,

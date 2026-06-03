@@ -21,8 +21,8 @@ class DanaTerlindungiDialog extends StatelessWidget {
                 end: Alignment.bottomRight,
                 colors: [AppColors.biru2, AppColors.biru3]),
             borderRadius: BorderRadius.circular(18),
-            border: Border.all(color: Colors.white.withOpacity(0.25), width: 1),
-            boxShadow: BoxShadow(color: Colors.black.withOpacity(0.25))),
+            border: Border.all(color: Colors.white.withAlpha(64), width: 1),
+            boxShadow: [BoxShadow(color: Colors.black.withAlpha(64))]),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

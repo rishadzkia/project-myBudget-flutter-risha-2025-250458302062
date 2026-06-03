@@ -30,7 +30,6 @@ class HomePage extends StatelessWidget {
       jumlah: '10.000.000',
       tanggal: 'Minggu, 10 September 2023',
       isPemasukan: true,
-      // BgColor:
     )
   ];
 
@@ -88,8 +87,8 @@ class HomePage extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          RekeningItemWidget( 
-              label: 'Rekening', 
+          RekeningItemWidget(
+              label: 'Rekening',
               onTap: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => RekeningPage()));
