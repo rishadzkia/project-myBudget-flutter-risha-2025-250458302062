@@ -15,10 +15,11 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
+  bool _isCategoryPage = false;
 
   final List<Widget> _pages = [
     HomePage(),
-    TransaksiPage(), 
+    TransaksiPage(),
     LaporanPage(),
     Text('Level'),
   ];
@@ -29,24 +30,25 @@ class _MainPageState extends State<MainPage> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+      _isCategoryPage = false;
     });
   }
 
-  // Fungsi buat pindah halaman di floating action button
-  void _pindahFloating() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => CategoryPage()));
+  void _goToCategoryPage() {
+    setState(() {
+      _isCategoryPage = true;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_selectedIndex],
+      body: _isCategoryPage ? CategoryPage() : _pages[_selectedIndex],
       floatingActionButton: Transform.translate(
         offset: Offset(0, 35),
         child: GestureDetector(
-          onTap: _pindahFloating,
-          child: CustomFloatingButton(),
+          onTap: _goToCategoryPage,
+          child: CustomFloatingButton(), 
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:my_budget/core/colors.dart';
 import 'package:my_budget/data/model/history_transaksi.dart';
 import 'package:my_budget/presentation/page/lain/dana_terlindungi.dart';
+import 'package:my_budget/presentation/page/lain/profile_page.dart';
 import 'package:my_budget/presentation/page/lain/rekening_page.dart';
 import 'package:my_budget/presentation/page/utama/kategori_page.dart';
 import 'package:my_budget/presentation/widget/card_history.dart';
@@ -156,7 +157,10 @@ class _HomeHeader extends StatelessWidget {
               width: 8,
             ),
             _CircleIconButton(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ProfilePage()));
+              },
               borderColor: AppColors.biru4,
               borderWidth: 1.5,
               icon: Icons.person_2,
