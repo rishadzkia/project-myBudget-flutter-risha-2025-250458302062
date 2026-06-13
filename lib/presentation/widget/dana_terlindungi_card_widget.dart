@@ -4,8 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 class DanaTerlindungiCardWidget extends StatelessWidget {
   final String jumlah;
   final VoidCallback? onTap;
+  final String text;
   const DanaTerlindungiCardWidget(
-      {super.key, required this.jumlah, this.onTap});
+      {super.key, required this.jumlah, this.onTap, required this.text});
 
   @override
   Widget build(BuildContext context) {

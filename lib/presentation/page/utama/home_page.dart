@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_budget/core/colors.dart';
+import 'package:my_budget/data/local/auth_local_datasource.dart';
 import 'package:my_budget/data/model/history_transaksi.dart';
+import 'package:my_budget/data/response/account_response_model.dart';
+import 'package:my_budget/presentation/bloc/account/account_bloc.dart';
+import 'package:my_budget/presentation/bloc/danaterlindungi/danaterlindungi_bloc.dart';
 import 'package:my_budget/presentation/page/lain/dana_terlindungi.dart';
 import 'package:my_budget/presentation/page/lain/profile_page.dart';
 import 'package:my_budget/presentation/page/lain/rekening_page.dart';
@@ -12,9 +17,15 @@ import 'package:my_budget/presentation/widget/dana_terlindungi_card_widget.dart'
 import 'package:my_budget/presentation/widget/rekening_item_widget.dart';
 import 'package:my_budget/presentation/widget/total_saldo_main_widget.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final authData = AuthLocalDatasource().getAuthData();
   final List<TransaksiHistoryData> _transaksi = [
     TransaksiHistoryData(
       icon: Icons.shopping_bag_rounded,
@@ -35,6 +46,37 @@ class HomePage extends StatelessWidget {
   ];
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    context.read<AccountBloc>().add(AccountEvent.getAccounts());
+    context
+        .read<DanaterlindungiBloc>()
+        .add(DanaterlindungiEvent.getDanaTerlindungi()); 
+  }
+
+  String formatRupiah(String value) {
+    final number = double.tryParse(value)?.toInt() ?? 0;
+
+    final result = number.toString().replaceAllMapped(
+          RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+          (match) => '${match[1]}.',
+        );
+
+    return 'Rp $result';
+  }
+
+  int getTotalSaldo(List<Account> accounts) {
+    return accounts.fold<int>(
+      0,
+      (previousValue, account) {
+        final saldo = double.tryParse(account.saldo)?.toInt() ?? 0;
+        return previousValue + saldo;
+      },
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -46,11 +88,19 @@ class HomePage extends StatelessWidget {
           SizedBox(
             height: 16,
           ),
-          Text(
-            'Halo Vyora 👋🏻',
-            style: GoogleFonts.poppins(
-                fontWeight: FontWeight.w500, fontSize: 20, color: Colors.black),
-          ),
+          // Widget untuk numgu data yang lagi di proses baru diubah UI nya
+          FutureBuilder(
+              future: AuthLocalDatasource().getAuthData(),
+              builder: (context, data) {
+                final name = data.data?.user?.name ?? 'User MyBudget';
+                return Text(
+                  'Halo $name 👋🏻',
+                  style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 20,
+                      color: Colors.black),
+                );
+              }),
           SizedBox(
             height: 4,
           ),
@@ -64,18 +114,40 @@ class HomePage extends StatelessWidget {
           SizedBox(
             height: 8,
           ),
-          TotalSaldoMainWidget(saldo: 'Rp.50.000.000'),
+          BlocBuilder<AccountBloc, AccountState>(
+            builder: (context, state) {
+              final accounts = state.maybeWhen(
+                orElse: () => <Account>[],
+                success: (accounts) => accounts,
+              );
+              final totalSaldo = getTotalSaldo(accounts);
+              return TotalSaldoMainWidget(
+                  saldo: formatRupiah(totalSaldo.toString()));
+            },
+          ),
           SizedBox(
             height: 10,
           ),
-          DanaTerlindungiCardWidget(
-            jumlah: 'Rp.500.000',
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => DanaTerlindungiPage(),
-                  ));
+          BlocBuilder<DanaterlindungiBloc, DanaterlindungiState>(
+            builder: (context, state) {
+              final total = state.maybeWhen(
+                  orElse: () => 0.0, success: (data, total) => total);
+
+              final totalFormatted = total.toInt().toString().replaceAllMapped(
+                    RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                    (match) => '${match[1]}.',
+                  );
+              return DanaTerlindungiCardWidget(
+                jumlah: 'Rp. $totalFormatted',
+                text: 'Dana Terlindungi',
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DanaTerlindungiPage(),
+                      ));
+                },
+              );
             },
           ),
           SizedBox(

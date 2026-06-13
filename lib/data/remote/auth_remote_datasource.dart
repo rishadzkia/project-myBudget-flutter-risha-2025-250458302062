@@ -17,7 +17,7 @@ class AuthRemoteDatasource {
         'Accept': 'application/json',
       },
       body: data.toJson(),
-    );
+    ); 
     // 201 itu response code untuk post
 
     if (response.statusCode == 200) {
