@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_budget/core/colors.dart';
 
 class TransaksiAmountCard extends StatelessWidget {
-  final String amount;
+  final TextEditingController controller;
   // Ini untuk toggle
   final bool isOtomatis;
   // Ini untuk logic toggle nya
   final ValueChanged<bool> onOtomatisChanged;
   const TransaksiAmountCard({
     super.key,
-    required this.amount,
+    required this.controller,
     required this.isOtomatis,
     required this.onOtomatisChanged,
   });
@@ -73,14 +74,39 @@ class TransaksiAmountCard extends StatelessWidget {
           SizedBox(
             height: 8,
           ),
-          Text(
-            amount,
-            style: GoogleFonts.poppins(
+          TextField(
+            controller: controller,
+            keyboardType: TextInputType.number,
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 29,
+              fontWeight: FontWeight.w900,
+              height: 1,
+            ),
+            decoration: const InputDecoration(
+              hintText: '0',
+              hintStyle: TextStyle(
+                color: Colors.white38,
+                fontSize: 29,
+                fontWeight: FontWeight.w900,
+                height: 1,
+              ),
+              prefixText: 'Rp ',
+              prefixStyle: TextStyle(
                 color: Colors.white,
-                fontSize: 26,
-                fontWeight: FontWeight.w800,
-                height: 1), 
-          )
+                fontSize: 29,
+                fontWeight: FontWeight.w900,
+                height: 1,
+              ),
+              border: InputBorder.none,
+              enabledBorder: InputBorder.none,
+              focusedBorder: InputBorder.none,
+              isDense: true,
+              contentPadding: EdgeInsets.zero,
+            ),
+            cursorColor: Colors.white,
+          ),
         ],
       ),
     );

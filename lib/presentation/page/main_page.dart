@@ -7,18 +7,26 @@ import 'package:my_budget/presentation/widget/nav/custom_button_navbar.dart';
 import 'package:my_budget/presentation/widget/nav/custom_floating.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+  final int initialIndex;
+  const MainPage({super.key, this.initialIndex = 0});
 
   @override
   State<MainPage> createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
-  int _selectedIndex = 0;
+ late int _selectedIndex = 0;
   bool _isCategoryPage = false;
 
-  final List<Widget> _pages = [
-    HomePage(),
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _selectedIndex = widget.initialIndex;
+  }
+
+   List<Widget> get _pages => [
+    HomePage(onLihatSemua: () => _onItemTapped(1)),
     TransaksiPage(),
     LaporanPage(),
     Text('Level'),
@@ -48,7 +56,7 @@ class _MainPageState extends State<MainPage> {
         offset: Offset(0, 35),
         child: GestureDetector(
           onTap: _goToCategoryPage,
-          child: CustomFloatingButton(), 
+          child: CustomFloatingButton(),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

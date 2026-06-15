@@ -12,6 +12,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final AuthRemoteDatasource _authRemoteDatasource;
   LoginBloc(this._authRemoteDatasource) : super(_Initial()) {
     on<_Login>((event, emit) async {
+      print("LOGIN DIPANGGIL");
       emit(_Loading());
       final dataRequest = AuthRequestModel(
         email: event.email,

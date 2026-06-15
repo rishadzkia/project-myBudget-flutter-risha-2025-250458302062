@@ -10,7 +10,7 @@ class TotalSaldoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 120,
+        height: 130,
         width: double.infinity,
         padding: EdgeInsets.symmetric(horizontal: 26, vertical: 20),
         decoration: BoxDecoration(
@@ -36,13 +36,13 @@ class TotalSaldoCard extends StatelessWidget {
           Text(title,
               style: GoogleFonts.poppins(
                   color: Colors.white,
-                  fontSize: 24,
+                  fontSize: 23,
                   fontWeight: FontWeight.w700)),
           SizedBox(height: 10),
           Text(nominal,
               style: GoogleFonts.poppins(
                   color: Colors.white,
-                  fontSize: 24,
+                  fontSize: 23,
                   fontWeight: FontWeight.w700)),
         ]));
   }

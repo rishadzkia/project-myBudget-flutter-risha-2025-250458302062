@@ -89,10 +89,10 @@ class KategoriItem extends StatelessWidget {
             width: 62,
             child: Column(mainAxisSize: MainAxisSize.min, children: [
               Container(
-                  width: 50,
-                  height: 50,
+                  width: 47,
+                  height: 47,
                   decoration: BoxDecoration(
-                      color: Colors.white, 
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(14),
                       border: Border.all(color: Color(0xFF153E98), width: 1.5),
                       boxShadow: [
@@ -113,7 +113,7 @@ class KategoriItem extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                   style: GoogleFonts.poppins(
-                      fontSize: 13,
+                      fontSize: 10,
                       height: 1,
                       color: Colors.black,
                       fontWeight: FontWeight.w500))

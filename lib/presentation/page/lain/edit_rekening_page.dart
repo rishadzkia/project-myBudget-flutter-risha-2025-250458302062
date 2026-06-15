@@ -3,31 +3,44 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_budget/core/colors.dart';
 import 'package:my_budget/data/request/create_account_request.dart';
+import 'package:my_budget/data/response/account_response_model.dart';
 import 'package:my_budget/presentation/bloc/account/account_bloc.dart';
 import 'package:my_budget/presentation/widget/rekening/button_rekening.dart';
 import 'package:my_budget/presentation/widget/rekening/simbol_card.dart';
 import 'package:my_budget/presentation/widget/transaksi/transaksi_note_card.dart';
 
-class TambahRekeningPage extends StatefulWidget {
-  const TambahRekeningPage({super.key});
-
+class EditRekeningPage extends StatefulWidget {
+  final Account account;
+  const EditRekeningPage({super.key, required this.account});
   @override
-  State<TambahRekeningPage> createState() => _TambahRekeningPageState();
+  State<EditRekeningPage> createState() => _EditRekeningPageState();
 }
 
-class _TambahRekeningPageState extends State<TambahRekeningPage> {
+class _EditRekeningPageState extends State<EditRekeningPage> {
+  late final ValueNotifier<int> selectedSymbolNotifier;
+  bool _isSaving = false;
   final TextEditingController namaRekeningController = TextEditingController();
 
   final TextEditingController nominalController = TextEditingController();
 
-// Terpilih satu simbol
-  int selectedSymbol = 0;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    namaRekeningController.text =
+        widget.account.accountName ?? 'Tidak ada rekening';
+    final rawSaldo = double.tryParse(widget.account.saldo)?.toInt() ?? 0;
+    nominalController.text = rawSaldo.toString();
+
+    selectedSymbolNotifier = ValueNotifier<int>(widget.account.symbol);
+  }
 
   @override
   void dispose() {
     namaRekeningController.dispose();
 
     nominalController.dispose();
+    selectedSymbolNotifier.dispose();
     super.dispose();
   }
 
@@ -61,10 +74,55 @@ class _TambahRekeningPageState extends State<TambahRekeningPage> {
       return;
     }
 
-    final saldo = int.tryParse(saldoText) ?? 0;
-    context.read<AccountBloc>().add(AccountEvent.createAccount(
-        CreateAccountRequestModel(
-            accountName: namaRekening, saldo: saldo, symbol: selectedSymbol)));
+    final saldo = int.tryParse(
+          saldoText.replaceAll('.', '').replaceAll('', ''),
+        ) ??
+        0;
+
+    final symbol = selectedSymbolNotifier.value;
+
+    setState(() {
+      _isSaving = false;
+    });
+
+    context.read<AccountBloc>().add(AccountEvent.updateAccount(
+        id: widget.account.id,
+        model: CreateAccountRequestModel(
+            accountName: namaRekening, saldo: saldo, symbol: symbol)));
+  }
+
+  IconData _getSymbolIcon(int index) {
+    switch (index) {
+      case 0:
+        return Icons.money_rounded;
+      case 1:
+        return Icons.credit_card_rounded;
+      case 2:
+        return Icons.payment_rounded;
+      case 3:
+        return Icons.account_balance_wallet_rounded;
+      case 4:
+        return Icons.money_rounded;
+      default:
+        return Icons.money_rounded;
+    }
+  }
+
+  Color _getSymbolColor(int index) {
+    switch (index) {
+      case 0:
+        return AppColors.biru1;
+      case 1:
+        return AppColors.biru4;
+      case 2:
+        return Color(0xFF6C1104);
+      case 3:
+        return Color(0xFF006D37);
+      case 4:
+        return AppColors.button2Color;
+      default:
+        return AppColors.biru1;
+    }
   }
 
   @override
@@ -74,6 +132,7 @@ class _TambahRekeningPageState extends State<TambahRekeningPage> {
         state.maybeWhen(
           orElse: () {},
           success: (accounts) {
+            _isSaving = false;
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text(
                 'Rekening berhasil ditambahkan',
@@ -84,6 +143,7 @@ class _TambahRekeningPageState extends State<TambahRekeningPage> {
             Navigator.pop(context);
           },
           error: (message) {
+            _isSaving = false;
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text(
                 message,
@@ -103,7 +163,7 @@ class _TambahRekeningPageState extends State<TambahRekeningPage> {
               backgroundColor: Colors.white,
               elevation: 0,
               title: Text(
-                'Tambah Rekening',
+                'Edit Data Rekening',
                 style: GoogleFonts.poppins(
                     color: AppColors.biru1,
                     fontSize: 18,
@@ -181,18 +241,17 @@ class _TambahRekeningPageState extends State<TambahRekeningPage> {
                               controller: nominalController,
                               keyboardType: TextInputType.number,
                               decoration: InputDecoration(
-                                  hintText: 'Masukkan nominal...',
                                   hintStyle: GoogleFonts.poppins(
                                       color: Colors.grey[200]),
                                   border: InputBorder.none,
-                                  prefixText: 'Rp ',
+                                  prefixText: 'Rp. ',
                                   prefixStyle: GoogleFonts.poppins(
                                       color: Colors.grey[200],
                                       fontSize: 2,
                                       fontWeight: FontWeight.w600)),
                               style: GoogleFonts.poppins(
                                   color: Colors.white,
-                                  fontSize: 18,
+                                  fontSize: 24,
                                   fontWeight: FontWeight.w600))
                         ])),
                     // end card tambah nominal
@@ -206,65 +265,23 @@ class _TambahRekeningPageState extends State<TambahRekeningPage> {
                           fontWeight: FontWeight.w600),
                     ),
                     SizedBox(height: 16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SimbolCard(
-                          icon: Icons.money_rounded,
-                          bgIcon: AppColors.biru1,
-                          isSelected: selectedSymbol == 0,
-                          onTap: () {
-                            setState(() {
-                              selectedSymbol = 0;
-                            });
-                          },
-                        ),
-                        SizedBox(width: 4),
-                        SimbolCard(
-                          icon: Icons.credit_card_rounded,
-                          bgIcon: AppColors.biru4,
-                          isSelected: selectedSymbol == 1,
-                          onTap: () {
-                            setState(() {
-                              selectedSymbol = 1;
-                            });
-                          },
-                        ),
-                        SizedBox(width: 4),
-                        SimbolCard(
-                          icon: Icons.payment_rounded,
-                          bgIcon: Color(0xFF6C1104),
-                          isSelected: selectedSymbol == 2,
-                          onTap: () {
-                            setState(() {
-                              selectedSymbol = 2;
-                            });
-                          },
-                        ),
-                        SizedBox(width: 4),
-                        SimbolCard(
-                          icon: Icons.attach_money_rounded,
-                          bgIcon: Color(0xFF006D37),
-                          isSelected: selectedSymbol == 3,
-                          onTap: () {
-                            setState(() {
-                              selectedSymbol = 3;
-                            });
-                          },
-                        ),
-                        SizedBox(width: 4),
-                        SimbolCard(
-                          icon: Icons.account_balance_wallet_rounded,
-                          bgIcon: AppColors.button2Color,
-                          isSelected: selectedSymbol == 4,
-                          onTap: () {
-                            setState(() {
-                              selectedSymbol = 4;
-                            });
-                          },
-                        ),
-                      ],
-                    ),
+                    // Simbol
+                    ValueListenableBuilder(
+                        valueListenable: selectedSymbolNotifier,
+                        builder: (context, selectedSymbol, _) {
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: List.generate(5, (index) {
+                              return SimbolCard(
+                                  icon: _getSymbolIcon(index),
+                                  bgIcon: _getSymbolColor(index),
+                                  isSelected: selectedSymbol == index,
+                                  onTap: () {
+                                    selectedSymbolNotifier.value = index;
+                                  });
+                            }),
+                          );
+                        }),
 
                     SizedBox(height: 16),
                     TransaksiNoteCard(
@@ -274,6 +291,10 @@ class _TambahRekeningPageState extends State<TambahRekeningPage> {
                     SizedBox(height: 50),
                     BlocBuilder<AccountBloc, AccountState>(
                       builder: (context, state) {
+                        final isLoading = state.maybeWhen(
+                          loading: () => true,
+                          orElse: () => false,
+                        );
                         return ButtonRekening(
                             title: 'Simpan Rekening', onTap: _onSimpanData);
                       },

@@ -12,8 +12,8 @@ class CustomFloatingButton extends StatelessWidget {
         height: 120,
         child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
           Container(
-              width: 65,
-              height: 65,
+              width: 60,
+              height: 60,
               decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   gradient: RadialGradient(
@@ -27,7 +27,7 @@ class CustomFloatingButton extends StatelessWidget {
                   border: Border.all(color: Colors.white, width: 2),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
+                      color: Colors.black.withOpacity(0.3),
                       blurRadius: 10,
                       spreadRadius: 0,
                       offset: Offset(0, 4),
@@ -61,13 +61,13 @@ class CustomFloatingButton extends StatelessWidget {
           Text(
             'Kategori',
             style: GoogleFonts.poppins(
-                fontSize: 14,
+                fontSize: 13,
                 color: Colors.grey,
                 fontWeight: FontWeight.w600,
                 shadows: [
                   Shadow(
-                    color: Colors.black.withOpacity(0.2),
-                    blurRadius: 6, 
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 6,
                     offset: Offset(0, 4),
                   )
                 ]),

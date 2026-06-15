@@ -3,13 +3,15 @@ import 'package:google_fonts/google_fonts.dart';
 
 class TransaksiCategoryCard extends StatelessWidget {
   final String category;
-  final IconData icon;
+  final String? iconPath;
+  final IconData? icon;
   final Color bgIcon;
   final VoidCallback? onTap;
   const TransaksiCategoryCard({
     super.key,
     required this.category,
     required this.icon,
+    required this.iconPath,
     required this.bgIcon,
     this.onTap,
   });
@@ -34,15 +36,26 @@ class TransaksiCategoryCard extends StatelessWidget {
         child: Row(
           children: [
             Container(
-              width: 40,
-              height: 40,
-              decoration: BoxDecoration(
-                color: bgIcon,
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: Colors.white, width: 1.5),
-              ),
-              child: Icon(icon, color: Colors.white, size: 20),
-            ),
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: bgIcon,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: Colors.white, width: 1.5),
+                ),
+                child: iconPath != null
+                    ? Padding(
+                        padding: EdgeInsets.all(8),
+                        child: Image.asset(
+                          iconPath!,
+                          color: Colors.white,
+                        ),
+                      )
+                    : Icon(
+                        icon ?? Icons.category_outlined,
+                        color: Colors.white,
+                        size: 20,
+                      )),
             SizedBox(
               width: 10,
             ),

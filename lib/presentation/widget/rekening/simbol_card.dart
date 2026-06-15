@@ -23,7 +23,7 @@ class SimbolCard extends StatelessWidget {
         height: 50,
         width: 50,
         decoration: BoxDecoration(
-            color: isSelected ? bgIcon : Colors.transparent,
+            color: bgIcon,
             borderRadius: BorderRadius.circular(12),
             border:
                 Border.all(color: isSelected ? Colors.white : bgIcon, width: 2),

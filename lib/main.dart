@@ -6,11 +6,18 @@ import 'package:my_budget/auth/bloc/register/register_bloc.dart';
 import 'package:my_budget/auth/pages/splash_screen.dart';
 import 'package:my_budget/data/remote/account_remote_datasource.dart';
 import 'package:my_budget/data/remote/auth_remote_datasource.dart';
+import 'package:my_budget/data/remote/category_remote_datasource.dart';
 import 'package:my_budget/data/remote/dana_terlindungi_remote_datasource.dart';
+import 'package:my_budget/data/remote/transaksi_remote_datasource.dart';
 import 'package:my_budget/presentation/bloc/account/account_bloc.dart';
+import 'package:my_budget/presentation/bloc/category/category_bloc.dart';
 import 'package:my_budget/presentation/bloc/danaterlindungi/danaterlindungi_bloc.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:my_budget/presentation/bloc/transaksi/transaksi_bloc.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initializeDateFormatting('id', null);
   runApp(const MainApp());
 }
 
@@ -29,6 +36,10 @@ class MainApp extends StatelessWidget {
         BlocProvider(
             create: (context) =>
                 DanaterlindungiBloc(DanaTerlindungiRemoteDatasource())),
+        BlocProvider(
+            create: (context) => CategoryBloc(CategoryRemoteDatasource())),
+        BlocProvider(
+            create: (context) => TransaksiBloc(TransaksiRemoteDatasource())),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

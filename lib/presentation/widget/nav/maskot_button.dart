@@ -32,7 +32,7 @@ class MaskotButtonNav extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: GoogleFonts.poppins(
                     color: isActive ? activeColor : inactiveColor,
-                    fontSize: 12,
+                    fontSize: 11,
                     fontWeight: isActive ? FontWeight.w700 : FontWeight.w500,
                   ))
             ])));

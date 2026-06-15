@@ -24,16 +24,16 @@ class DanaTerlindungiCardWidget extends StatelessWidget {
         child: Stack(
           children: [
             Positioned(
-                right: 8,
-                bottom: 20,
+                right: 3,
+                bottom: 28,
                 child: Image.asset(
                   'assets/home_page/harta_karun.png',
-                  width: 150,
-                  height: 150,
+                  width: 160,
+                  height: 160,
                   fit: BoxFit.cover,
                 )),
             Padding(
-              padding: EdgeInsetsGeometry.fromLTRB(16, 22, 150, 16),
+              padding: EdgeInsetsGeometry.fromLTRB(16, 22, 130, 16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -44,11 +44,12 @@ class DanaTerlindungiCardWidget extends StatelessWidget {
                       SizedBox(
                         width: 5,
                       ),
-                      Text(
+                      Flexible(
+                          child: Text(
                         'Dana Terlindungi',
                         style: GoogleFonts.poppins(
                             fontWeight: FontWeight.w600, fontSize: 16),
-                      )
+                      ))
                     ],
                   ),
                   SizedBox(
@@ -59,7 +60,7 @@ class DanaTerlindungiCardWidget extends StatelessWidget {
                     maxLines: 1,
                     style: GoogleFonts.poppins(
                         fontWeight: FontWeight.w600,
-                        fontSize: 30,
+                        fontSize: 27,
                         color: Colors.white),
                   ),
                   SizedBox(
@@ -70,12 +71,12 @@ class DanaTerlindungiCardWidget extends StatelessWidget {
                     maxLines: 2,
                     style: GoogleFonts.poppins(
                         color: Colors.white,
-                        fontSize: 12,
+                        fontSize: 10,
                         height: 1.2,
                         fontWeight: FontWeight.w500),
                   ),
                   SizedBox(
-                    height: 16,
+                    height: 22,
                   ),
 
                   // Button
@@ -109,7 +110,7 @@ class DanaTerlindungiCardWidget extends StatelessWidget {
                                   fontWeight: FontWeight.w500),
                             ),
                             SizedBox(
-                              width: 10,
+                              width: 20,
                             ),
                             Icon(
                               Icons.arrow_forward_ios_rounded,

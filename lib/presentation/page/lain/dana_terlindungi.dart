@@ -6,16 +6,16 @@ import 'package:my_budget/data/request/dana_terlindungi_request_model.dart';
 import 'package:my_budget/data/response/account_response_model.dart';
 import 'package:my_budget/presentation/bloc/account/account_bloc.dart';
 import 'package:my_budget/presentation/bloc/danaterlindungi/danaterlindungi_bloc.dart';
-import 'package:my_budget/presentation/widget/dialog/dana_terlindungi_dialog.dart'; 
+import 'package:my_budget/presentation/widget/dialog/dana_terlindungi_dialog.dart';
 
-class DanaTerlindungiPage extends StatefulWidget { 
+class DanaTerlindungiPage extends StatefulWidget {
   const DanaTerlindungiPage({super.key});
 
   @override
   State<DanaTerlindungiPage> createState() => _DanaTerlindungiPageState();
 }
 
-class _DanaTerlindungiPageState extends State<DanaTerlindungiPage> { 
+class _DanaTerlindungiPageState extends State<DanaTerlindungiPage> {
   final TextEditingController nominalController = TextEditingController();
 
   @override
@@ -81,12 +81,12 @@ class _DanaTerlindungiPageState extends State<DanaTerlindungiPage> {
                       AppColors.biru3,
                     ]),
               ),
-            ), 
+            ),
             SafeArea(
               child: Padding(
                 padding: EdgeInsets.all(16),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,  
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     DanaBackButton(
                       onTap: () {
@@ -94,7 +94,7 @@ class _DanaTerlindungiPageState extends State<DanaTerlindungiPage> {
                         Navigator.pop(context);
                       },
                     ),
-                    SizedBox( 
+                    SizedBox(
                       height: 48,
                     ),
                     Center(

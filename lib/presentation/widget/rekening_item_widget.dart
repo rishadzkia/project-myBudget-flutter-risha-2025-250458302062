@@ -11,10 +11,12 @@ class RekeningItemWidget extends StatelessWidget {
     return GestureDetector(
         onTap: onTap,
         child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(14),
+              border:
+                  Border.all(color: Colors.black.withOpacity(0.25), width: 1),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withOpacity(0.05),
@@ -28,8 +30,8 @@ class RekeningItemWidget extends StatelessWidget {
                 width: 40,
                 height: 40,
                 decoration: BoxDecoration(
-                  color: Color(0xFF6C1104),
-                ),
+                    color: Color(0xFF6C1104),
+                    borderRadius: BorderRadius.circular(12)),
                 child: Icon(
                   Icons.account_balance_wallet_outlined,
                   color: Colors.white,
@@ -48,8 +50,7 @@ class RekeningItemWidget extends StatelessWidget {
               ),
               SizedBox(width: 8),
               Icon(Icons.arrow_forward_ios_rounded,
-              color: Colors.black,
-              size: 18)
+                  color: Colors.black, size: 18)
             ])));
   }
 }

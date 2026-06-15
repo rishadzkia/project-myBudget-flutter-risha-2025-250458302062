@@ -5,6 +5,7 @@ import 'package:my_budget/core/account_symbol.dart';
 import 'package:my_budget/core/colors.dart';
 import 'package:my_budget/data/response/account_response_model.dart';
 import 'package:my_budget/presentation/bloc/account/account_bloc.dart';
+import 'package:my_budget/presentation/page/lain/detail_rekening_page.dart';
 import 'package:my_budget/presentation/page/lain/tambah_rekening_page.dart';
 import 'package:my_budget/presentation/widget/rekening/button_rekening.dart';
 import 'package:my_budget/presentation/widget/rekening/rekening_card.dart';
@@ -177,9 +178,63 @@ class _RekeningPageState extends State<RekeningPage> {
                                       AccountSymbol.getColor(account.symbol),
                                   title: account.accountName,
                                   nominal: formatRupiah(account.saldo),
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                DetailRekeningPage(
+                                                    account: account)));
+                                  },
                                   onDeleteTap: () {
-                                    context.read<AccountBloc>().add(
-                                        AccountEvent.deleteAccount(account.id));
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return AlertDialog(
+                                            backgroundColor: Color(0xFF0F6FB3),
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(16)),
+                                            title: Text(
+                                              'Hapus Rekening',
+                                              style: GoogleFonts.poppins(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w600),
+                                            ),
+                                            content: Text(
+                                              'Yakin ingin menghaous rekening ini?',
+                                              style: GoogleFonts.poppins(
+                                                  color: Colors.white60,
+                                                  fontSize: 14),
+                                            ),
+                                            actions: [
+                                              TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(context),
+                                                  child: Text(
+                                                    'Batal',
+                                                    style: GoogleFonts.poppins(
+                                                        color: Colors.white38),
+                                                  )),
+                                              TextButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                    context
+                                                        .read<AccountBloc>()
+                                                        .add(AccountEvent
+                                                            .deleteAccount(
+                                                                account.id));
+                                                  },
+                                                  child: Text(
+                                                    'Hapus',
+                                                    style: GoogleFonts.poppins(
+                                                        color: Colors.red,
+                                                        fontWeight:
+                                                            FontWeight.w700),
+                                                  ))
+                                            ],
+                                          );
+                                        });
                                   },
                                 );
                               },
